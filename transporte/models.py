@@ -2,9 +2,13 @@ from django.db import models
 
 # Create your models here.
 class Ruta(models.Model):
-    origen = models.CharField(max_length=100)
-    destino = models.CharField(max_length=100)
-    tipo_transporte = models.CharField(max_length=100)
+    TIPO_TRANSPORTE = [
+        ('T','TERRESTRE'),
+        ('A','AEREO'),
+    ]
+    origen = models.CharField(max_length=500)
+    destino = models.CharField(max_length=500)
+    tipo_transporte = models.CharField(max_length=100, choices= TIPO_TRANSPORTE)
     distancia_km = models.IntegerField()
 
 class Vehiculo(models.Model):
@@ -32,12 +36,13 @@ class Piloto(models.Model):
     activo = models.BooleanField(default=True)
 
 class Despacho(models.Model):
-    ESTADOS:{
-        (),
-        (),
-    }
-    fecha_despacho = models.CharField(max_length=100)
-    estado = models.CharField(max_length=100)
+    ESTADOS = [
+        ('ER','EN RUTA'),
+        ('E', 'ENTREGADO'),
+        ('P', 'PENDIENTE')
+    ]
+    fecha_despacho = models.DateField()
+    estado = models.CharField(max_length=50, choices=ESTADOS)
     costo_envio = models.IntegerField()
     ruta_id = models.ForeignKey(Ruta, on_delete=models.CASCADE, related_name="despacho")
     vehiculo_id = models.ForeignKey(Vehiculo, on_delete=models.CASCADE, related_name="despacho")
