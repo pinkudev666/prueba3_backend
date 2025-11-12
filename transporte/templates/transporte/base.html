@@ -1,0 +1,724 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Logística Global Ltda. - Soluciones de transporte terrestre y aéreo nacional e internacional">
+    <meta name="keywords" content="logística, transporte, carga, terrestre, aéreo, internacional">
+    <meta name="author" content="Logística Global Ltda.">
+    
+    <title>{% block title %}Logística Global Ltda. - Transporte y Logística{% endblock %}</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Estilos CSS personalizados -->
+    {% block extra_css %}{% endblock %}
+    
+    <style>
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --dark-gray: #1f2937;
+            --medium-gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+            --accent-orange: #f59e0b;
+            --success-green: #10b981;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styles */
+        .header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-top {
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .header-top-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .header-contact {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .header-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .header-contact-item i {
+            font-size: 0.85rem;
+        }
+        
+        .header-social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .header-social a {
+            color: var(--white);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .header-social a:hover {
+            transform: scale(1.2);
+        }
+        
+        .header-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--primary-blue);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1.2;
+        }
+        
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--medium-gray);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        /* Navigation */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .nav a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav a:hover {
+            background-color: var(--light-gray);
+            color: var(--primary-blue);
+        }
+        
+        .nav a.active {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+        }
+        
+        .nav .btn-login {
+            background-color: var(--accent-orange);
+            color: var(--white);
+            margin-left: 10px;
+        }
+        
+        .nav .btn-login:hover {
+            background-color: #d97706;
+            transform: translateY(-2px);
+        }
+        
+        /* Main Content */
+        main {
+            flex: 1;
+        }
+        
+        /* Footer Styles */
+        .footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 60px 0 0;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .footer-section p {
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo i {
+            font-size: 2rem;
+            color: var(--accent-orange);
+        }
+        
+        .footer-logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-orange);
+            padding-left: 5px;
+        }
+        
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #d1d5db;
+        }
+        
+        .footer-contact-item i {
+            color: var(--accent-orange);
+            margin-top: 3px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            background-color: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 25px 0;
+            margin-top: 40px;
+        }
+        
+        .footer-bottom-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .footer-bottom p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-bottom-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-bottom-links a:hover {
+            color: var(--accent-orange);
+        }
+        
+        /* Messages/Alerts */
+        .messages {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .alert i {
+            font-size: 1.2rem;
+        }
+        
+        .alert-success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid var(--success-green);
+        }
+        
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+        
+        .alert-warning {
+            background-color: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid var(--accent-orange);
+        }
+        
+        .alert-info {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid var(--secondary-blue);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 280px;
+                height: 100vh;
+                background-color: var(--white);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 80px 20px 20px;
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                transition: left 0.3s ease;
+                overflow-y: auto;
+                z-index: 999;
+            }
+            
+            .nav.active {
+                left: 0;
+            }
+            
+            .nav a {
+                width: 100%;
+                padding: 15px;
+            }
+            
+            .nav .btn-login {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .nav-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0,0,0,0.5);
+                z-index: 998;
+            }
+            
+            .nav-overlay.active {
+                display: block;
+            }
+            
+            .header-top-content {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .header-contact {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.65rem;
+            }
+            
+            .logo-icon {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header-contact {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-top {
+                font-size: 0.8rem;
+            }
+            
+            .header-social {
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <!-- Header Top Bar -->
+        <div class="header-top">
+            <div class="header-top-content">
+                <div class="header-contact">
+                    <div class="header-contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+56 2 2345 6789</span>
+                    </div>
+                    <div class="header-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contacto@logisticaglobal.cl</span>
+                    </div>
+                    <div class="header-contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Lun - Vie: 8:00 - 18:00</span>
+                    </div>
+                </div>
+                <div class="header-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Header Main -->
+        <div class="header-main">
+            <a href="{% url 'inicio' %}" class="logo">
+                <i class="fas fa-truck-moving logo-icon"></i>
+                <div class="logo-text">
+                    <h1>Logística Global</h1>
+                    <p>Soluciones en Transporte</p>
+                </div>
+            </a>
+            
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav" id="nav">
+                <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'inicio' %}active{% endif %}">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+                <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'servicios' %}active{% endif %}">
+                    <i class="fas fa-box"></i> Servicios
+                </a>
+                <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'rutas' %}active{% endif %}">
+                    <i class="fas fa-route"></i> Rutas
+                </a>
+                <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'rastreo' %}active{% endif %}">
+                    <i class="fas fa-map-marked-alt"></i> Rastreo
+                </a>
+                <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'nosotros' %}active{% endif %}">
+                    <i class="fas fa-info-circle"></i> Nosotros
+                </a>
+                <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'contacto' %}active{% endif %}">
+                    <i class="fas fa-envelope"></i> Contacto
+                </a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                        <i class="fas fa-tachometer-alt"></i> Panel
+                    </a>
+                    <a href="{% url 'inicio' %}" class="btn-login">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </a>
+                {% else %}
+                    <a href="{% url 'inicio' %}" class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Navigation Overlay for Mobile -->
+    <div class="nav-overlay" id="navOverlay"></div>
+    
+    <!-- Messages -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {% if message.tags == 'success' %}
+                <i class="fas fa-check-circle"></i>
+            {% elif message.tags == 'error' %}
+                <i class="fas fa-exclamation-circle"></i>
+            {% elif message.tags == 'warning' %}
+                <i class="fas fa-exclamation-triangle"></i>
+            {% else %}
+                <i class="fas fa-info-circle"></i>
+            {% endif %}
+            <span>{{ message }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <!-- Columna 1: Sobre Nosotros -->
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <i class="fas fa-truck-moving"></i>
+                    <span>Logística Global</span>
+                </div>
+                <p>
+                    Líderes en soluciones de transporte terrestre y aéreo con más de 15 años 
+                    de experiencia conectando empresas a nivel nacional e internacional.
+                </p>
+                <div class="footer-social">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            
+            <!-- Columna 2: Enlaces Rápidos -->
+            <div class="footer-section">
+                <h3>Enlaces Rápidos</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'inicio' %}"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+                    <li><a href="{% url 'inicio' %}"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+                    <li><a href="{% url 'inicio' %}"><i class="fas fa-chevron-right"></i> Rutas</a></li>
+                    <li><a href="{% url 'inicio' %}"><i class="fas fa-chevron-right"></i> Rastreo de Envíos</a></li>
+                    <li><a href="{% url 'inicio' %}"><i class="fas fa-chevron-right"></i> Sobre Nosotros</a></li>
+                    <li><a href="{% url 'inicio' %}"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                </ul>
+            </div>
+            
+            <!-- Columna 3: Servicios -->
+            <div class="footer-section">
+                <h3>Nuestros Servicios</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-truck"></i> Transporte Terrestre</a></li>
+                    <li><a href="#"><i class="fas fa-plane"></i> Transporte Aéreo</a></li>
+                    <li><a href="#"><i class="fas fa-route"></i> Gestión de Rutas</a></li>
+                    <li><a href="#"><i class="fas fa-warehouse"></i> Almacenamiento</a></li>
+                    <li><a href="#"><i class="fas fa-globe"></i> Envíos Internacionales</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i> Entregas Express</a></li>
+                </ul>
+            </div>
+            
+            <!-- Columna 4: Contacto -->
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Av. Libertador Bernardo O'Higgins 1234<br>Santiago, Chile</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+56 2 2345 6789<br>+56 9 8765 4321</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contacto@logisticaglobal.cl<br>ventas@logisticaglobal.cl</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Lunes a Viernes: 8:00 - 18:00<br>Sábados: 9:00 - 14:00</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Logística Global Ltda. Todos los derechos reservados.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos y Condiciones</a>
+                    <a href="#">Mapa del Sitio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Toggle de navegación móvil
+        const navToggle = document.getElementById('navToggle');
+        const nav = document.getElementById('nav');
+        const navOverlay = document.getElementById('navOverlay');
+        
+        function toggleNav() {
+            nav.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            const icon = navToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        }
+        
+        navToggle.addEventListener('click', toggleNav);
+        navOverlay.addEventListener('click', toggleNav);
+        
+        // Cerrar navegación al hacer clic en un enlace
+        const navLinks = nav.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 968) {
+                    toggleNav();
+                }
+            });
+        });
+        
+        // Cerrar mensajes automáticamente después de 5 segundos
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 300);
+            }, 5000);
+        });
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

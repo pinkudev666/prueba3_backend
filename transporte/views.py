@@ -36,4 +36,4 @@ class DespachoViewSet(viewsets.ModelViewSet):
     serializer_class = DespachoSerializer
 
 def inicio(request):
-    return render(request, "transporte/index.html")
+    return render(request, "transporte/inicio.html")

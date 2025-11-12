@@ -1,0 +1,610 @@
+{% extends 'transporte/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section / Banner Principal -->
+<section class="hero-section">
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <h1 class="hero-title">Conectando rutas, impulsando el mundo</h1>
+            <p class="hero-subtitle">Soluciones integrales de transporte terrestre y aéreo para operaciones nacionales e internacionales</p>
+            <div class="hero-buttons">
+                <a href="#servicios" class="btn btn-primary">
+                    <i class="fas fa-route"></i> Ver Rutas Disponibles
+                </a>
+                <a href="{% url 'inicio' %}" class="btn btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección Sobre Nosotros -->
+<section class="about-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Logística Global Ltda.</h2>
+            <div class="title-underline"></div>
+        </div>
+        <div class="about-content">
+            <p class="about-text">
+                Somos líderes en el sector de transporte y logística, con más de 15 años de experiencia 
+                conectando empresas y mercados a nivel nacional e internacional. Nuestra flota moderna 
+                y nuestro equipo especializado garantizan el traslado seguro y puntual de su carga.
+            </p>
+            <p class="about-text">
+                Ofrecemos soluciones personalizadas que se adaptan a las necesidades específicas de cada 
+                cliente, optimizando rutas, tiempos de entrega y costos operativos mediante tecnología 
+                de punta y un sistema de gestión centralizado.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Servicios Principales -->
+<section id="servicios" class="services-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="title-underline"></div>
+            <p class="section-subtitle">Soluciones logísticas integrales para su negocio</p>
+        </div>
+        
+        <div class="services-grid">
+            <!-- Servicio 1: Transporte Terrestre -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <h3 class="service-title">Transporte Terrestre</h3>
+                <p class="service-description">
+                    Flota de vehículos modernos para carga local, nacional e internacional. 
+                    Rastreo GPS en tiempo real y seguro de mercancía incluido.
+                </p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Carga completa y parcial</li>
+                    <li><i class="fas fa-check"></i> Mercancía refrigerada</li>
+                    <li><i class="fas fa-check"></i> Transporte especializado</li>
+                </ul>
+            </div>
+
+            <!-- Servicio 2: Transporte Aéreo -->
+            <div class="service-card featured">
+                <div class="service-badge">Más Rápido</div>
+                <div class="service-icon">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <h3 class="service-title">Transporte Aéreo</h3>
+                <p class="service-description">
+                    Envíos urgentes y carga aérea internacional con alianzas en los principales 
+                    aeropuertos del mundo. Despacho express garantizado.
+                </p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Envíos express 24-48h</li>
+                    <li><i class="fas fa-check"></i> Carga internacional</li>
+                    <li><i class="fas fa-check"></i> Gestión aduanera</li>
+                </ul>
+            </div>
+
+            <!-- Servicio 3: Gestión de Rutas -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <h3 class="service-title">Gestión de Rutas</h3>
+                <p class="service-description">
+                    Planificación inteligente de rutas optimizadas para reducir tiempos y costos. 
+                    Sistema automatizado de distribución y seguimiento.
+                </p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Optimización de rutas</li>
+                    <li><i class="fas fa-check"></i> Seguimiento en tiempo real</li>
+                    <li><i class="fas fa-check"></i> Reportes de rendimiento</li>
+                </ul>
+            </div>
+
+            <!-- Servicio 4: Despachos y Almacenamiento -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-warehouse"></i>
+                </div>
+                <h3 class="service-title">Despachos y Almacenamiento</h3>
+                <p class="service-description">
+                    Centros de distribución estratégicamente ubicados. Gestión de inventarios, 
+                    picking, packing y distribución de última milla.
+                </p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Almacenamiento seguro</li>
+                    <li><i class="fas fa-check"></i> Control de inventario</li>
+                    <li><i class="fas fa-check"></i> Distribución eficiente</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de Estadísticas -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <div class="stat-number" data-target="15000">15,000+</div>
+                <div class="stat-label">Envíos Mensuales</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <div class="stat-number" data-target="45">45+</div>
+                <div class="stat-label">Países Alcanzados</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number" data-target="500">500+</div>
+                <div class="stat-label">Clientes Satisfechos</div>
+            </div>
+            
+            <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="stat-number" data-target="15">15</div>
+                <div class="stat-label">Años de Experiencia</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección Call to Action Final -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2 class="cta-title">¿Listo para optimizar su logística?</h2>
+            <p class="cta-text">
+                Únase a cientos de empresas que confían en nosotros para gestionar su transporte 
+                y logística. Solicite una cotización sin compromiso.
+            </p>
+            <div class="cta-buttons">
+                <a href="{% url 'inicio' %}" class="btn btn-light">
+                    <i class="fas fa-envelope"></i> Contactar
+                </a>
+                <a href="{% url 'inicio' %}" class="btn btn-outline">
+                    <i class="fas fa-calculator"></i> Solicitar Cotización
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Variables de color profesionales para logística */
+:root {
+    --primary-blue: #1e3a8a;
+    --secondary-blue: #3b82f6;
+    --dark-gray: #1f2937;
+    --medium-gray: #6b7280;
+    --light-gray: #f3f4f6;
+    --white: #ffffff;
+    --accent-orange: #f59e0b;
+    --success-green: #10b981;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 600px;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    background-image: 
+        linear-gradient(135deg, rgba(30, 58, 138, 0.95) 0%, rgba(59, 130, 246, 0.9) 100%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,300 Q300,100 600,300 T1200,300" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/><path d="M0,350 Q300,150 600,350 T1200,350" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/></svg>');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+}
+
+.hero-overlay {
+    text-align: center;
+    padding: 0 20px;
+    max-width: 900px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    opacity: 0.95;
+    line-height: 1.6;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 35px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--accent-orange);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: #d97706;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--primary-blue);
+}
+
+.btn-secondary:hover {
+    background-color: var(--light-gray);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
+}
+
+.btn-light {
+    background-color: var(--white);
+    color: var(--primary-blue);
+}
+
+.btn-light:hover {
+    background-color: var(--light-gray);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--white);
+    border-color: var(--white);
+}
+
+.btn-outline:hover {
+    background-color: var(--white);
+    color: var(--primary-blue);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--dark-gray);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.title-underline {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+    margin: 0 auto 20px;
+    border-radius: 2px;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: var(--medium-gray);
+}
+
+/* About Section */
+.about-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--medium-gray);
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Services Section */
+.services-section {
+    padding: 80px 0;
+    background-color: var(--light-gray);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.service-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.service-card.featured {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    color: var(--white);
+}
+
+.service-card.featured .service-title,
+.service-card.featured .service-description,
+.service-card.featured .service-features {
+    color: var(--white);
+}
+
+.service-badge {
+    position: absolute;
+    top: 20px;
+    right: -30px;
+    background-color: var(--accent-orange);
+    color: var(--white);
+    padding: 5px 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 25px;
+    background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.service-card.featured .service-icon {
+    background: var(--white);
+    color: var(--primary-blue);
+}
+
+.service-title {
+    font-size: 1.5rem;
+    color: var(--dark-gray);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.service-description {
+    color: var(--medium-gray);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.service-features li {
+    padding: 8px 0;
+    color: var(--medium-gray);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.service-features i {
+    color: var(--success-green);
+    font-size: 0.9rem;
+}
+
+.service-card.featured .service-features i {
+    color: var(--accent-orange);
+}
+
+/* Stats Section */
+.stats-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    color: var(--white);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 80px 0;
+    background-color: var(--dark-gray);
+    color: var(--white);
+}
+
+.cta-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.cta-text {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .hero-buttons,
+    .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        height: 500px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+}
+</style>
+{% endblock %}
