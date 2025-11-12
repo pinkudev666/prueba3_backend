@@ -23,7 +23,17 @@ class PilotoViewSet(viewsets.ModelViewSet):
     queryset = Piloto.objects.all()
     serializer_class = PilotoSerializer
 
+class ClienteViewSet(viewsets.ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+
+class CargaViewSet(viewsets.ModelViewSet):
+    queryset = Carga.objects.all()
+    serializer_class = CargaSerializer
+
 class DespachoViewSet(viewsets.ModelViewSet):
     queryset = Despacho.objects.all()
     serializer_class = DespachoSerializer
 
+def inicio(request):
+    return render(request, "transporte/index.html")

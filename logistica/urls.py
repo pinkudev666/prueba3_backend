@@ -25,10 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Página de inicio
     path('', inicio, name='inicio'),
-    # Rutas HTML de la app
-    path('app_libros/', include('app_libros.urls')),
     # Rutas de la API REST
-    path('api/', include('app_libros.api_urls')),
+    path('transporte/', include('transporte.urls')),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # Redoc UI (alternativa más minimalista)
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
