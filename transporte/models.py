@@ -54,7 +54,8 @@ class Cliente(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
 
-class Carga(models.Model):   
+class Carga(models.Model):       
+    cliente_id = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="carga")
     peso = models.IntegerField()
     tipo = models.CharField(max_length=100)
     valor = models.IntegerField()
@@ -75,7 +76,7 @@ class Despacho(models.Model):
     aeronave_id = models.ForeignKey(Aeronave, on_delete=models.CASCADE, related_name="despacho")
     conductor_id = models.ForeignKey(Conductor, on_delete=models.CASCADE, related_name="despacho")
     piloto_id = models.ForeignKey(Piloto, on_delete=models.CASCADE, related_name="despacho")    
-    cliente_id = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="despacho")
+
     carga_id = models.ForeignKey(Carga, on_delete=models.CASCADE, related_name="despacho")
     def __str__(self):
         return f"{self.carga_id.tipo} {self.fecha_despacho} {self.estado}"

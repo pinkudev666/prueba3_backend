@@ -32,13 +32,14 @@ class PilotoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ClienteSerializer(serializers.ModelSerializer):
-    despacho = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    carga = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Cliente
         fields = '__all__'
 
 class CargaSerializer(serializers.ModelSerializer):
     despacho = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    cliente = ClienteSerializer(read_only=True)
     class Meta:
         model = Carga
         fields = '__all__'
