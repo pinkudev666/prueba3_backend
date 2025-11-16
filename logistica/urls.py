@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
-from transporte.views import inicio,servicios, nosotros, inicio_sesion
+from transporte.views import inicio,servicios, nosotros, inicio_sesion, documentacion
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import permissions
@@ -27,9 +27,11 @@ urlpatterns = [
     path('', inicio, name='inicio'),
     path('servicios/', servicios, name='servicios'),
     path('nosotros/', nosotros, name='nosotros'),
-    path('inicio_sesion/', inicio_sesion, name='inicio_sesion'),
+    path('inicio_sesion/', inicio_sesion, name='inicio_sesion'),    
+    path('documentacion/', documentacion, name='documentacion'),
     # Rutas de la API REST
     path('transporte/', include('transporte.urls')),
+
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # Redoc UI (alternativa más minimalista)
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

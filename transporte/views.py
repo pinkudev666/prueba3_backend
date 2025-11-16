@@ -50,6 +50,9 @@ def nosotros(request):
 
 def inicio_sesion(request):
     return render(request, "transporte/inicio_sesion.html")
+
+def documentacion(request):
+    return render(request, "transporte/documentacion.html")
 #------------------------------------------------------------------------------------
 
 def lista_ruta(request):

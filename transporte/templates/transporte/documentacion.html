@@ -1,0 +1,55 @@
+{% extends 'transporte/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <!-- Título -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Documentación de la API</h1>
+        <p class="text-muted">
+            Aquí puedes acceder a la documentación interactiva generada automáticamente por el sistema. 
+            Utiliza estas herramientas para explorar los endpoints, estructuras JSON y realizar pruebas de manera sencilla.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Swagger -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-code fa-3x text-primary mb-3"></i>
+                    <h4 class="fw-bold">Swagger UI</h4>
+                    <p class="text-muted">
+                        Interfaz interactiva para probar y visualizar todos los endpoints de la API en tiempo real.
+                    </p>
+                    <a href="{% url 'schema-swagger-ui' %}" class="btn btn-warning px-4 rounded-pill">
+                        Ir a Swagger
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ReDoc -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x text-primary mb-3"></i>
+                    <h4 class="fw-bold">ReDoc</h4>
+                    <p class="text-muted">
+                        Documentación elegante y completa, ideal para visualizar la estructura completa de la API.
+                    </p>
+                    <a href="{% url 'schema-redoc' %}" class="btn btn-warning px-4 rounded-pill">
+                        Ir a ReDoc
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
