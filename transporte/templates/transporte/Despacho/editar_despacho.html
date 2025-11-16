@@ -1,0 +1,109 @@
+{% extends 'transporte/base.html' %}
+{% block content %}
+
+<section class="py-3">
+    <div class="container">
+
+        <div class="p-4 text-white text-center shadow"
+            style="background: linear-gradient(135deg,#1e3a8a,#3b82f6);
+                   border-radius: 20px;">
+            <h1 class="display-5 fw-bold">Editar Despacho</h1>
+        </div>
+
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+
+        <a href="{% url 'lista_despacho' %}" class="btn btn-outline-primary mb-4">
+            <i class="fas fa-arrow-left me-2"></i> Volver al listado
+        </a>
+
+        <div class="card shadow border-0 p-4 rounded-4">
+            <h3 class="fw-bold mb-4">Editar Despacho ID: {{ id }}</h3>
+
+            <!-- Formulario sin BD -->
+            <form>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha de Despacho</label>
+                    <input type="date" class="form-control" value="2025-11-15">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Estado</label>
+                    <select class="form-select">
+                        <option selected>EN RUTA</option>
+                        <option>ENTREGADO</option>
+                        <option>PENDIENTE</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Costo de Envío ($)</label>
+                    <input type="number" class="form-control" value="10000">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Ruta</label>
+                    <select class="form-select">
+                        <option selected>Ruta 1</option>
+                        <option>Ruta 2</option>
+                        <option>Ruta 3</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Vehículo</label>
+                    <select class="form-select">
+                        <option selected>Vehículo 1</option>
+                        <option>Vehículo 2</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Aeronave</label>
+                    <select class="form-select">
+                        <option selected>Aeronave 1</option>
+                        <option>Aeronave 2</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Conductor</label>
+                    <select class="form-select">
+                        <option selected>Juan Pérez</option>
+                        <option>María López</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Piloto</label>
+                    <select class="form-select">
+                        <option selected>Piloto 1</option>
+                        <option>Piloto 2</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Carga</label>
+                    <select class="form-select">
+                        <option selected>Mercancía General</option>
+                        <option>Paquete Especial</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-warning mt-3">
+                    <i class="fas fa-edit me-2"></i>
+                    Actualizar Despacho
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

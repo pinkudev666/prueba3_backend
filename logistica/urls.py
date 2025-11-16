@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
-from transporte.views import inicio
+from transporte.views import inicio,servicios, nosotros, inicio_sesion
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import permissions
@@ -25,6 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Página de inicio
     path('', inicio, name='inicio'),
+    path('servicios/', servicios, name='servicios'),
+    path('nosotros/', nosotros, name='nosotros'),
+    path('inicio_sesion/', inicio_sesion, name='inicio_sesion'),
     # Rutas de la API REST
     path('transporte/', include('transporte.urls')),
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

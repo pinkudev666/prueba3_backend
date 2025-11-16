@@ -1,0 +1,85 @@
+{% extends 'transporte/base.html' %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="py-3">
+    <div class="container">
+
+        <div class="p-4 text-white text-center shadow"
+             style="
+                background: linear-gradient(135deg,#1e3a8a,#3b82f6);
+                border-radius: 20px;
+                max-width: 2000px;
+                margin: 0 auto;
+             ">
+            <h1 class="display-5 fw-bold">Sobre Nosotros</h1>
+        </div>
+
+    </div>
+</section>
+
+<!-- Contenido -->
+<section class="py-5">
+    <div class="container">
+
+        <!-- Rutas -->
+        <div class="p-4 shadow rounded-3 mb-4">
+            <h2 class="fw-bold mb-3">Rutas más frecuentes</h2>
+            <p>
+                Nuestra empresa opera rutas estratégicas dentro y fuera de la ciudad,
+                asegurando tiempos de entrega óptimos y un seguimiento constante.
+                Cada ruta es analizada para garantizar eficiencia, seguridad y rapidez.
+            </p>
+
+            <ul class="mt-3">
+                <li>
+                    <strong>Rutas:</strong> Urbanas, Interurbanas y Rutas de larga distancia.
+                    <a href="{% url 'lista_ruta' %}" class="btn btn-outline-primary btn-sm ms-2">
+                        Ver rutas
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Clientes -->
+        <div class="p-4 shadow rounded-3 mb-4">
+            <h2 class="fw-bold mb-3">Nuestros Clientes</h2>
+            <p>
+                Trabajamos con una amplia variedad de clientes, desde pequeñas empresas hasta corporaciones.
+                Nuestro compromiso es entregar un servicio personalizado que se adapte a las necesidades
+                específicas de cada uno.
+            </p>
+
+            <ul class="mt-3">
+                <li>
+                    <strong>Clientes:</strong> Empresas de retail, laboratorios, cadenas de supermercados, pymes.
+                    <a href="{% url 'lista_cliente' %}" class="btn btn-outline-primary btn-sm ms-2">
+                        Ver clientes
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Cargas -->
+        <div class="p-4 shadow rounded-3 mb-4">
+            <h2 class="fw-bold mb-3">Tipos de Carga</h2>
+            <p>
+                Manejamos distintos tipos de carga dependiendo de la necesidad del cliente:
+                desde productos frágiles, carga industrial, alimentos, documentos, y encomiendas.
+            </p>
+
+            <ul class="mt-3">
+                <li>
+                    <strong>Cargas:</strong> Perecederas, frágiles, industriales, de alto valor y documentación.
+                    <a href="{% url 'lista_carga' %}" class="btn btn-outline-primary btn-sm ms-2">
+                        Ver cargas
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -13,7 +13,7 @@
                 max-width: 2000px;
                 margin: 0 auto;
              ">
-            <h1 class="display-5 fw-bold">Gestión de Conductores</h1>
+            <h1 class="display-5 fw-bold">Gestión de Cargas</h1>
         </div>
 
     </div>
@@ -25,37 +25,44 @@
 
         <!-- Encabezado -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">Listado de Conductores</h2>
+            <h2 class="fw-bold mb-0">Listado de Cargas</h2>
 
-            <a href="{% url 'crear_conductor' %}" class="btn btn-primary btn    shadow-sm rounded-pill px-4">
-                <i class="fas fa-plus me-2"></i> Crear Conductor
+            <a href="{% url 'crear_carga' %}" class="btn btn-primary btn- shadow-sm rounded-pill px-4">
+                <i class="fas fa-plus me-2"></i> Crear Carga
             </a>
         </div>
 
-        <!-- Buscador y filtros -->
-        <form class="row g-3 mb-4">
-            <div class="col-md-6">
-                <input type="text" class="form-control form-control   " placeholder="Buscar por nombre o RUT…">
+        <!-- Buscador y filtros en la misma línea -->
+        <form class="row g-2 mb-4 d-flex align-items-center">
+            <div class="col-auto">
+                <input type="text" class="form-control form-control-" placeholder="Cliente…">
             </div>
 
-            <div class="col-md-6">
-                <select class="form-select  ">
-                    <option value="">Estado</option>
-                    <option>Activo</option>
-                    <option>Inactivo</option>
-                </select>
+            <div class="col-auto">
+                <input type="text" class="form-control form-control-" placeholder="Tipo…">
+            </div>
+
+            <div class="col-auto">
+                <input type="number" class="form-control form-control-" placeholder="Peso o valor…">
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn shadow- rounded-pill px-3">
+                    <i class="fas fa-filter me-1"></i> Aplicar filtros
+                </button>
             </div>
         </form>
+
 
         <!-- Tabla -->
         <div class="table-responsive shadow rounded-3">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-primary text-center">
                     <tr>
-                        <th>Nombre</th>
-                        <th>RUT</th>
-                        <th>Licencia</th>
-                        <th>Estado</th>
+                        <th>Cliente</th>
+                        <th>Peso (kg)</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -65,16 +72,14 @@
                     
                     <tr class="border-bottom">
                         <td class="fw-semibold">Juan Pérez</td>
-                        <td class="fw-semibold">12.345.678-9</td>
-                        <td class="fw-semibold">Clase B</td>
+                        <td class="text-center">500</td>
+                        <td class="fw-semibold">Carga General</td>
+                        <td class="text-center">$150.000</td>
                         <td class="text-center">
-                            <span class="badge bg-success px-3 py-2 rounded-pill">Activo</span>
-                        </td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_conductor' 1 %}" class="btn btn-warning btn-sm rounded-circle me-1">
+                            <a href="{% url 'editar_carga' 1 %}" class="btn btn-warning btn-sm rounded-circle me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{% url 'eliminar_conductor' 1 %}" class="btn btn-danger btn-sm rounded-circle">
+                            <a href="{% url 'eliminar_carga' 1 %}" class="btn btn-danger btn-sm rounded-circle">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
@@ -82,16 +87,14 @@
 
                     <tr class="border-bottom">
                         <td class="fw-semibold">María González</td>
-                        <td class="fw-semibold">23.456.789-0</td>
-                        <td class="fw-semibold">Clase A</td>
+                        <td class="text-center">300</td>
+                        <td class="fw-semibold">Carga Perecible</td>
+                        <td class="text-center">$200.000</td>
                         <td class="text-center">
-                            <span class="badge bg-secondary px-3 py-2 rounded-pill">Inactivo</span>
-                        </td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_conductor' 2 %}" class="btn btn-warning btn-sm rounded-circle me-1">
+                            <a href="{% url 'editar_carga' 2 %}" class="btn btn-warning btn-sm rounded-circle me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{% url 'eliminar_conductor' 2 %}" class="btn btn-danger btn-sm rounded-circle">
+                            <a href="{% url 'eliminar_carga' 2 %}" class="btn btn-danger btn-sm rounded-circle">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>

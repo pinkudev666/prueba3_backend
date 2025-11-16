@@ -56,9 +56,13 @@
 <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="{% url 'inicio' %}">
-            <i class="fas fa-truck-moving fs-2 me-2" style="color: var(--primary-blue)"></i>
+            <img src="{% static 'transporte/img/logo_empresa_transporte_02.png' %}" 
+                alt="Logística Global" 
+                class="me-2"
+                style="height: 60px; width: auto;">
             <span>Logística Global</span>
         </a>
+
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
             <span class="navbar-toggler-icon"></span>
@@ -74,24 +78,21 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-box"></i> Servicios</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'servicios' %}active{% endif %}" href="{% url 'servicios' %}">
+                        <i class="fas fa-box"></i> Servicios
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-route"></i> Rutas</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'nosotros' %}active{% endif %}" href="{% url 'nosotros' %}">
+                        <i class="fas fa-info-circle"></i> Nosotros
+                    </a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-map-marked-alt"></i> Rastreo</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> Nosotros</a>
-                </li>
 
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-tachometer-alt"></i> Panel</a>
+                        <a class="nav-link" href=""><i class="fas fa-tachometer-alt"></i> Panel</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-warning ms-2" href="#">
@@ -100,7 +101,7 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="btn btn-warning ms-2" href="#">
+                        <a class="btn btn-warning ms-2" href="{% url 'inicio_sesion' %}">
                             <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                         </a>
                     </li>
@@ -130,26 +131,17 @@
 
         <div class="row">
 
-            <!-- Contacto -->
-            <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-3">Contacto</h5>
+<!-- Contacto compacto -->
+<div class="col-md-4 mb-3">
+    <h5 class="fw-bold mb-2">Contacto</h5>
 
-                <p><i class="fas fa-map-marker-alt me-2"></i> Av. Libertador Bernardo O'Higgins 1234, Santiago</p>
-                <p><i class="fas fa-phone me-2"></i> +56 2 2345 6789</p>
-                <p><i class="fas fa-envelope me-2"></i> contacto@logisticaglobal.cl</p>
-                <p><i class="fas fa-clock me-2"></i> Lun-Vie: 8:00 - 18:00</p>
-            </div>
+    <p class="mb-1 small"><i class="fas fa-map-marker-alt me-1"></i> Av. Libertador Bernardo O'Higgins 1234, Santiago</p>
+    <p class="mb-1 small"><i class="fas fa-phone me-1"></i> +56 2 2345 6789</p>
+    <p class="mb-1 small"><i class="fas fa-envelope me-1"></i> contacto@logisticaglobal.cl</p>
+    <p class="mb-0 small"><i class="fas fa-clock me-1"></i> Lun-Vie: 8:00 - 18:00</p>
+</div>
 
-            <!-- Servicios -->
-            <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-3">Servicios</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#"><i class="fas fa-truck me-2"></i>Transporte Terrestre</a></li>
-                    <li><a href="#"><i class="fas fa-plane me-2"></i>Transporte Aéreo</a></li>
-                    <li><a href="#"><i class="fas fa-route me-2"></i>Gestión de Rutas</a></li>
-                    <li><a href="#"><i class="fas fa-warehouse me-2"></i>Almacenamiento</a></li>
-                </ul>
-            </div>
+
 
         </div>
 
@@ -157,6 +149,7 @@
 
         <div class="d-flex justify-content-between flex-wrap">
             <p class="mb-0">&copy; 2025 Logística Global Ltda.</p>
+            <p class="mb-0">Paula Contreras & Catalina Mardones | TI3041 | INACAP 2025 </p>
             <div>
                 <a href="#" class="me-3">Privacidad</a>
                 <a href="#" class="me-3">Términos</a>

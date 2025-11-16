@@ -13,7 +13,7 @@
                 max-width: 2000px;
                 margin: 0 auto;
              ">
-            <h1 class="display-5 fw-bold">Gestión de Conductores</h1>
+            <h1 class="display-5 fw-bold">Gestión de Clientes</h1>
         </div>
 
     </div>
@@ -25,25 +25,21 @@
 
         <!-- Encabezado -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">Listado de Conductores</h2>
+            <h2 class="fw-bold mb-0">Listado de Clientes</h2>
 
-            <a href="{% url 'crear_conductor' %}" class="btn btn-primary btn    shadow-sm rounded-pill px-4">
-                <i class="fas fa-plus me-2"></i> Crear Conductor
+            <a href="{% url 'crear_cliente' %}" class="btn btn-primary btn    shadow-sm rounded-pill px-4">
+                <i class="fas fa-plus me-2"></i> Crear Cliente
             </a>
         </div>
 
         <!-- Buscador y filtros -->
         <form class="row g-3 mb-4">
             <div class="col-md-6">
-                <input type="text" class="form-control form-control   " placeholder="Buscar por nombre o RUT…">
+                <input type="text" class="form-control form-control   " placeholder="Buscar por nombre, apellido o RUT…">
             </div>
 
             <div class="col-md-6">
-                <select class="form-select  ">
-                    <option value="">Estado</option>
-                    <option>Activo</option>
-                    <option>Inactivo</option>
-                </select>
+                <input type="text" class="form-control form-control   " placeholder="Buscar por email o teléfono…">
             </div>
         </form>
 
@@ -52,10 +48,11 @@
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-primary text-center">
                     <tr>
-                        <th>Nombre</th>
                         <th>RUT</th>
-                        <th>Licencia</th>
-                        <th>Estado</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -64,34 +61,32 @@
                     <!-- EJEMPLOS ESTÁTICOS -->
                     
                     <tr class="border-bottom">
-                        <td class="fw-semibold">Juan Pérez</td>
                         <td class="fw-semibold">12.345.678-9</td>
-                        <td class="fw-semibold">Clase B</td>
+                        <td class="fw-semibold">Juan</td>
+                        <td class="fw-semibold">Pérez</td>
+                        <td class="fw-semibold">+56 9 1234 5678</td>
+                        <td class="fw-semibold">juan.perez@mail.com</td>
                         <td class="text-center">
-                            <span class="badge bg-success px-3 py-2 rounded-pill">Activo</span>
-                        </td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_conductor' 1 %}" class="btn btn-warning btn-sm rounded-circle me-1">
+                            <a href="{% url 'editar_cliente' 1 %}" class="btn btn-warning btn-sm rounded-circle me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{% url 'eliminar_conductor' 1 %}" class="btn btn-danger btn-sm rounded-circle">
+                            <a href="{% url 'eliminar_cliente' 1 %}" class="btn btn-danger btn-sm rounded-circle">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
                     </tr>
 
                     <tr class="border-bottom">
-                        <td class="fw-semibold">María González</td>
                         <td class="fw-semibold">23.456.789-0</td>
-                        <td class="fw-semibold">Clase A</td>
+                        <td class="fw-semibold">María</td>
+                        <td class="fw-semibold">González</td>
+                        <td class="fw-semibold">+56 9 9876 5432</td>
+                        <td class="fw-semibold">maria.gonzalez@mail.com</td>
                         <td class="text-center">
-                            <span class="badge bg-secondary px-3 py-2 rounded-pill">Inactivo</span>
-                        </td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_conductor' 2 %}" class="btn btn-warning btn-sm rounded-circle me-1">
+                            <a href="{% url 'editar_cliente' 2 %}" class="btn btn-warning btn-sm rounded-circle me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{% url 'eliminar_conductor' 2 %}" class="btn btn-danger btn-sm rounded-circle">
+                            <a href="{% url 'eliminar_cliente' 2 %}" class="btn btn-danger btn-sm rounded-circle">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>

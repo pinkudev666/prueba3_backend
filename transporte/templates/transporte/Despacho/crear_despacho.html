@@ -1,0 +1,110 @@
+{% extends 'transporte/base.html' %}
+
+{% block content %}
+
+<section class="py-3">
+    <div class="container">
+
+        <div class="p-4 text-white text-center shadow"
+            style="background: linear-gradient(135deg,#1e3a8a,#3b82f6);
+                   border-radius: 20px;">
+            <h1 class="display-5 fw-bold">Crear Despacho</h1>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="py-5">
+    <div class="container">
+
+        <a href="{% url 'lista_despacho' %}" class="btn btn-outline-primary mb-4">
+            <i class="fas fa-arrow-left me-2"></i> Volver al listado
+        </a>
+
+        <div class="card shadow border-0 p-4 rounded-4">
+            <h3 class="fw-bold mb-4">Nuevo Despacho</h3>
+
+            <!-- Formulario sin funcionalidad -->
+            <form>
+
+                <div class="mb-3">
+                    <label class="form-label">Fecha de Despacho</label>
+                    <input type="date" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Estado</label>
+                    <select class="form-select ">
+                        <option value="ER">En Ruta</option>
+                        <option value="E">Entregado</option>
+                        <option value="P">Pendiente</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Costo de Envío</label>
+                    <input type="number" class="form-control ">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Ruta</label>
+                    <select class="form-select ">
+                        <option value="">Seleccionar Ruta</option>
+                        <!-- Aquí se agregarían las rutas dinámicamente -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Vehículo</label>
+                    <select class="form-select  ">
+                        <option value="">Seleccionar Vehículo</option>
+                        <!-- Aquí se agregarían los vehículos dinámicamente -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Aeronave</label>
+                    <select class="form-select  ">
+                        <option value="">Seleccionar Aeronave</option>
+                        <!-- Aquí se agregarían las aeronaves dinámicamente -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Conductor</label>
+                    <select class="form-select  ">
+                        <option value="">Seleccionar Conductor</option>
+                        <!-- Aquí se agregarían los conductores dinámicamente -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Piloto</label>
+                    <select class="form-select  ">
+                        <option value="">Seleccionar Piloto</option>
+                        <!-- Aquí se agregarían los pilotos dinámicamente -->
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Carga</label>
+                    <select class="form-select  ">
+                        <option value="">Seleccionar Carga</option>
+                        <!-- Aquí se agregarían las cargas dinámicamente -->
+                    </select>
+                </div>
+
+                <button class="btn btn-primary btn    mt-3">
+                    <i class="fas fa-save me-2"></i>
+                    Guardar Despacho
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'transporte/base.html' %}
+{% block content %}
+
+<section class="py-3">
+    <div class="container">
+
+        <div class="p-4 text-white text-center shadow"
+            style="background: linear-gradient(135deg,#1e3a8a,#3b82f6);
+                   border-radius: 20px;">
+            <h1 class="display-5 fw-bold">Editar Carga</h1>
+        </div>
+
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+
+        <a href="{% url 'lista_carga' %}" class="btn btn-outline-primary mb-4">
+            <i class="fas fa-arrow-left me-2"></i> Volver al listado
+        </a>
+
+        <div class="card shadow border-0 p-4 rounded-4">
+            <h3 class="fw-bold mb-4">Editar Carga ID: {{ id }}</h3>
+
+            <!-- Formulario sin BD -->
+            <form>
+
+                <div class="mb-3">
+                    <label class="form-label">Cliente</label>
+                    <input type="text" class="form-control" value="Nombre Cliente">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Peso (kg)</label>
+                    <input type="number" class="form-control" value="500">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tipo de Carga</label>
+                    <input type="text" class="form-control" value="Mercancía General">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Valor ($)</label>
+                    <input type="number" class="form-control" value="1500">
+                </div>
+
+                <button class="btn btn-warning mt-3">
+                    <i class="fas fa-edit me-2"></i>
+                    Actualizar Carga
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

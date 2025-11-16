@@ -1,0 +1,87 @@
+{% extends 'transporte/base.html' %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="py-3">
+    <div class="container">
+
+        <div class="p-4 text-white text-center shadow"
+             style="
+                background: linear-gradient(135deg,#1e3a8a,#3b82f6);
+                border-radius: 20px;
+                max-width: 2000px;
+                margin: 0 auto;
+             ">
+            <h1 class="display-5 fw-bold">Nuestros Servicios de Transporte</h1>
+        </div>
+
+    </div>
+</section>
+
+<!-- Contenido -->
+<section class="py-5">
+    <div class="container">
+
+        <!-- Transporte Terrestre -->
+        <div class="row mb-4">
+
+            <div class="col-md-6 mb-4">
+                <div class="p-4 shadow rounded-3 h-100">
+                    <h2 class="fw-bold mb-3">Transporte Terrestre</h2>
+                    <p>Contamos con vehículos modernos y conductores capacitados para transporte terrestre de carga.</p>
+
+                    <ul>
+                        <li>
+                            <strong>Vehículos</strong>
+                            <a href="{% url 'lista_vehiculo' %}" class="btn btn-outline-primary btn-sm ms-2">
+                                Ver lista
+                            </a>
+                        </li>
+                        <li>
+                            <strong>Conductores</strong>
+                            <a href="{% url 'lista_conductor' %}" class="btn btn-outline-primary btn-sm ms-2">
+                                Ver lista
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="p-4 shadow rounded-3 h-100">
+                    <h2 class="fw-bold mb-3">Transporte Aéreo</h2>
+                    <p>Nuestro transporte aéreo utiliza aeronaves modernas operadas por pilotos certificados para envíos rápidos y seguros.</p>
+
+                    <ul>
+                        <li>
+                            <strong>Aeronaves</strong>
+                            <a href="{% url 'lista_aeronave' %}" class="btn btn-outline-primary btn-sm ms-2">
+                                Ver lista
+                            </a>
+                        </li>
+                        <li>
+                            <strong>Pilotos</strong>
+                            <a href="{% url 'lista_piloto' %}" class="btn btn-outline-primary btn-sm ms-2">
+                                Ver lista
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Información adicional -->
+        <div class="p-4 shadow rounded-3 mb-5">
+            <h2 class="fw-bold mb-3">Nuestro compromiso</h2>
+            <p>Nos comprometemos a ofrecer servicios de transporte seguros, confiables y eficientes, adaptados a las necesidades de nuestros clientes. Cada transporte es monitoreado y cada carga es tratada con el máximo cuidado.</p>
+            <a href="{% url 'lista_despacho' %}" class="btn btn-primary btn    shadow-sm rounded-pill px-4">
+                <i class="fas fa-truck me-2"></i> Ver Despachos
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
