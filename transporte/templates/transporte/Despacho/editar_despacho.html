@@ -1,15 +1,14 @@
 {% extends 'transporte/base.html' %}
+
 {% block content %}
 
 <section class="py-3">
     <div class="container">
-
         <div class="p-4 text-white text-center shadow"
             style="background: linear-gradient(135deg,#1e3a8a,#3b82f6);
                    border-radius: 20px;">
             <h1 class="display-5 fw-bold">Editar Despacho</h1>
         </div>
-
     </div>
 </section>
 
@@ -21,76 +20,118 @@
         </a>
 
         <div class="card shadow border-0 p-4 rounded-4">
-            <h3 class="fw-bold mb-4">Editar Despacho ID: {{ id }}</h3>
+            <h3 class="fw-bold mb-4">Editar Despacho ID: {{ despacho.id }}</h3>
 
-            <!-- Formulario sin BD -->
-            <form>
+            <form method="POST">
+                {% csrf_token %}
 
                 <div class="mb-3">
                     <label class="form-label">Fecha de Despacho</label>
-                    <input type="date" class="form-control" value="2025-11-15">
+                    <input type="date" name="fecha_despacho" class="form-control" 
+                           value="{{ despacho.fecha_despacho|date:'Y-m-d' }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Estado</label>
-                    <select class="form-select">
-                        <option selected>EN RUTA</option>
-                        <option>ENTREGADO</option>
-                        <option>PENDIENTE</option>
+                    <select name="estado" class="form-select" required>
+                        <option value="">Seleccionar estado...</option>
+                        <option value="ER" {% if despacho.estado == "ER" %}selected{% endif %}>En Ruta</option>
+                        <option value="E" {% if despacho.estado == "E" %}selected{% endif %}>Entregado</option>
+                        <option value="P" {% if despacho.estado == "P" %}selected{% endif %}>Pendiente</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Costo de Envío ($)</label>
-                    <input type="number" class="form-control" value="10000">
+                    <label class="form-label">Costo de Envío</label>
+                    <input type="number" name="costo_envio" class="form-control"
+                           value="{{ despacho.costo_envio }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Ruta</label>
-                    <select class="form-select">
-                        <option selected>Ruta 1</option>
-                        <option>Ruta 2</option>
-                        <option>Ruta 3</option>
+                    <select name="ruta_id" class="form-select" required>
+                        <option value="">Seleccionar Ruta...</option>
+                        {% for r in ruta %}
+                        <option value="{{ r.id }}" {% if despacho.ruta_id.id == r.id %}selected{% endif %}>
+                            {{ r.origen }} - {{ r.destino }}
+                        </option>
+                        {% endfor %}
                     </select>
                 </div>
 
+                <!-- Tipo de Transporte -->
                 <div class="mb-3">
-                    <label class="form-label">Vehículo</label>
-                    <select class="form-select">
-                        <option selected>Vehículo 1</option>
-                        <option>Vehículo 2</option>
+                    <label class="form-label">Tipo de Transporte</label>
+                    <select id="tipo_transporte" name="tipo_transporte" class="form-select" required>
+                        <option value="">Seleccionar tipo...</option>
+                        <option value="terrestre" {% if despacho.vehiculo_id %}selected{% endif %}>Terrestre</option>
+                        <option value="aereo" {% if despacho.aeronave_id %}selected{% endif %}>Aéreo</option>
                     </select>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Aeronave</label>
-                    <select class="form-select">
-                        <option selected>Aeronave 1</option>
-                        <option>Aeronave 2</option>
-                    </select>
+                <!-- Transporte Terrestre -->
+                <div id="grupo_terrestre" style="display: {% if despacho.vehiculo_id %}block{% else %}none{% endif %};">
+                    <div class="mb-3">
+                        <label class="form-label">Vehículo</label>
+                        <select name="vehiculo_id" class="form-select">
+                            <option value="">Seleccionar Vehículo...</option>
+                            {% for v in vehiculos %}
+                            <option value="{{ v.id }}" {% if despacho.vehiculo_id and despacho.vehiculo_id.id == v.id %}selected{% endif %}>
+                                {{ v.patente }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Conductor</label>
+                        <select name="conductor_id" class="form-select">
+                            <option value="">Seleccionar Conductor...</option>
+                            {% for c in conductores %}
+                            <option value="{{ c.id }}" {% if despacho.conductor_id and despacho.conductor_id.id == c.id %}selected{% endif %}>
+                                {{ c.nombre }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Conductor</label>
-                    <select class="form-select">
-                        <option selected>Juan Pérez</option>
-                        <option>María López</option>
-                    </select>
-                </div>
+                <!-- Transporte Aéreo -->
+                <div id="grupo_aereo" style="display: {% if despacho.aeronave_id %}block{% else %}none{% endif %};">
+                    <div class="mb-3">
+                        <label class="form-label">Aeronave</label>
+                        <select name="aeronave_id" class="form-select">
+                            <option value="">Seleccionar Aeronave...</option>
+                            {% for a in aeronaves %}
+                            <option value="{{ a.id }}" {% if despacho.aeronave_id and despacho.aeronave_id.id == a.id %}selected{% endif %}>
+                                {{ a.matricula }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Piloto</label>
-                    <select class="form-select">
-                        <option selected>Piloto 1</option>
-                        <option>Piloto 2</option>
-                    </select>
+                    <div class="mb-3">
+                        <label class="form-label">Piloto</label>
+                        <select name="piloto_id" class="form-select">
+                            <option value="">Seleccionar Piloto...</option>
+                            {% for p in pilotos %}
+                            <option value="{{ p.id }}" {% if despacho.piloto_id and despacho.piloto_id.id == p.id %}selected{% endif %}>
+                                {{ p.nombre }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Carga</label>
-                    <select class="form-select">
-                        <option selected>Mercancía General</option>
-                        <option>Paquete Especial</option>
+                    <select name="carga_id" class="form-select" required>
+                        <option value="">Seleccionar Carga...</option>
+                        {% for c in cargas %}
+                        <option value="{{ c.id }}" {% if despacho.carga_id.id == c.id %}selected{% endif %}>
+                            {{ c.tipo }}
+                        </option>
+                        {% endfor %}
                     </select>
                 </div>
 
@@ -105,5 +146,26 @@
 
     </div>
 </section>
+
+<script>
+document.getElementById("tipo_transporte").addEventListener("change", function () {
+    const value = this.value;
+    const terrestre = document.getElementById("grupo_terrestre");
+    const aereo = document.getElementById("grupo_aereo");
+
+    if (value === "terrestre") {
+        terrestre.style.display = "block";
+        aereo.style.display = "none";
+    } 
+    else if (value === "aereo") {
+        terrestre.style.display = "none";
+        aereo.style.display = "block";
+    }
+    else {
+        terrestre.style.display = "none";
+        aereo.style.display = "none";
+    }
+});
+</script>
 
 {% endblock %}

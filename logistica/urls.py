@@ -1,11 +1,16 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
-from transporte.views import inicio,servicios, nosotros, inicio_sesion, documentacion
+from transporte.views.views import inicio,servicios, nosotros,  documentacion
+from transporte.views.autenticacion_view import inicio_sesion,restriccion_autenticacion, cerrar_sesion
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -29,12 +34,15 @@ urlpatterns = [
     path('nosotros/', nosotros, name='nosotros'),
     path('inicio_sesion/', inicio_sesion, name='inicio_sesion'),    
     path('documentacion/', documentacion, name='documentacion'),
-    # Rutas de la API REST
+    # ruta de la API REST
+    path('resticcion_autenticacion/', restriccion_autenticacion, name='restriccion_autenticacion'),
+    path("cerrar_sesion/", cerrar_sesion, name="cerrar_sesion"),
     path('transporte/', include('transporte.urls')),
-
     re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     # Redoc UI (alternativa más minimalista)
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 # Configuración para servir archivos estáticos en desarrollo

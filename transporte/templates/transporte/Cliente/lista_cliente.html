@@ -1,5 +1,4 @@
 {% extends 'transporte/base.html' %}
-
 {% block content %}
 
 <!-- Hero -->
@@ -27,19 +26,33 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold mb-0">Listado de Clientes</h2>
 
-            <a href="{% url 'crear_cliente' %}" class="btn btn-primary btn    shadow-sm rounded-pill px-4">
+            <a href="{% url 'crear_cliente' %}" class="btn btn-primary shadow-sm rounded-pill px-4">
                 <i class="fas fa-plus me-2"></i> Crear Cliente
             </a>
         </div>
 
-        <!-- Buscador y filtros -->
-        <form class="row g-3 mb-4">
-            <div class="col-md-6">
-                <input type="text" class="form-control form-control   " placeholder="Buscar por nombre, apellido o RUT…">
+        <!-- Buscadores -->
+        <form method="GET" class="row g-2 mb-4 d-flex align-items-center">
+            <div class="col-md-4">
+                <input type="text" 
+                    name="q1"
+                    value="{{ q1 }}"
+                    class="form-control"
+                    placeholder="Buscar por nombre, apellido o RUT…">
             </div>
 
-            <div class="col-md-6">
-                <input type="text" class="form-control form-control   " placeholder="Buscar por email o teléfono…">
+            <div class="col-auto">
+                <input type="text" 
+                    name="q2"
+                    value="{{ q2 }}"
+                    class="form-control"
+                    placeholder="Buscar por email o teléfono…">
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary shadow-sm rounded-pill px-3">
+                    <i class="fas fa-filter me-1"></i> Aplicar filtros
+                </button>
             </div>
         </form>
 
@@ -58,52 +71,63 @@
                 </thead>
 
                 <tbody>
-                    <!-- EJEMPLOS ESTÁTICOS -->
-                    
+                    {% for cliente in page_obj %}
                     <tr class="border-bottom">
-                        <td class="fw-semibold">12.345.678-9</td>
-                        <td class="fw-semibold">Juan</td>
-                        <td class="fw-semibold">Pérez</td>
-                        <td class="fw-semibold">+56 9 1234 5678</td>
-                        <td class="fw-semibold">juan.perez@mail.com</td>
+                        <td class="fw-semibold">{{ cliente.rut }}</td>
+                        <td class="fw-semibold">{{ cliente.nombre }}</td>
+                        <td class="fw-semibold">{{ cliente.apellido }}</td>
+                        <td class="fw-semibold">{{ cliente.telefono }}</td>
+                        <td class="fw-semibold">{{ cliente.email }}</td>
                         <td class="text-center">
-                            <a href="{% url 'editar_cliente' 1 %}" class="btn btn-warning btn-sm rounded-circle me-1">
+                            <a href="{% url 'editar_cliente' cliente.id %}" class="btn btn-warning btn-sm rounded-circle me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{% url 'eliminar_cliente' 1 %}" class="btn btn-danger btn-sm rounded-circle">
+                            <a href="{% url 'eliminar_cliente' cliente.id %}" class="btn btn-danger btn-sm rounded-circle">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
                     </tr>
-
-                    <tr class="border-bottom">
-                        <td class="fw-semibold">23.456.789-0</td>
-                        <td class="fw-semibold">María</td>
-                        <td class="fw-semibold">González</td>
-                        <td class="fw-semibold">+56 9 9876 5432</td>
-                        <td class="fw-semibold">maria.gonzalez@mail.com</td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_cliente' 2 %}" class="btn btn-warning btn-sm rounded-circle me-1">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{% url 'eliminar_cliente' 2 %}" class="btn btn-danger btn-sm rounded-circle">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">
+                            No se encontraron resultados
                         </td>
                     </tr>
-
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
 
-        <!-- Paginación visual -->
+        <!-- Paginación -->
         <nav class="mt-4">
             <ul class="pagination justify-content-center">
+
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}&q1={{ q1 }}&q2={{ q2 }}">Anterior</a>
+                </li>
+                {% else %}
                 <li class="page-item disabled"><a class="page-link">Anterior</a></li>
-                <li class="page-item active"><a class="page-link">1</a></li>
-                <li class="page-item"><a class="page-link">2</a></li>
-                <li class="page-item"><a class="page-link">3</a></li>
-                <li class="page-item"><a class="page-link">Siguiente</a></li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link">{{ num }}</a></li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}&q1={{ q1 }}&q2={{ q2 }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}&q1={{ q1 }}&q2={{ q2 }}">Siguiente</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><a class="page-link">Siguiente</a></li>
+                {% endif %}
+
             </ul>
         </nav>
 

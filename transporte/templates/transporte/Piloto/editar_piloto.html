@@ -1,15 +1,14 @@
 {% extends 'transporte/base.html' %}
+
 {% block content %}
 
 <section class="py-3">
     <div class="container">
-
         <div class="p-4 text-white text-center shadow"
-            style="background: linear-gradient(135deg,#1e3a8a,#3b82f6);
-                   border-radius: 20px;">
+             style="background: linear-gradient(135deg,#1e3a8a,#3b82f6);
+                    border-radius: 20px;">
             <h1 class="display-5 fw-bold">Editar Piloto</h1>
         </div>
-
     </div>
 </section>
 
@@ -21,31 +20,31 @@
         </a>
 
         <div class="card shadow border-0 p-4 rounded-4">
-            <h3 class="fw-bold mb-4">Editar Piloto ID: {{ id }}</h3>
+            <h3 class="fw-bold mb-4">Editar Piloto: {{ piloto.nombre }}</h3>
 
-            <!-- Formulario sin BD -->
-            <form>
+            <form method="POST">
+                {% csrf_token %}
 
                 <div class="mb-3">
                     <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" value="Juan Pérez">
+                    <input type="text" name="nombre" value="{{ piloto.nombre }}" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">RUT</label>
-                    <input type="text" class="form-control" value="12.345.678-9">
+                    <input type="text" name="rut" value="{{ piloto.rut }}" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Certificación</label>
-                    <input type="text" class="form-control" value="Certificado A">
+                    <input type="text" name="certificacion" value="{{ piloto.certificacion }}" class="form-control" required>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Activo</label>
-                    <select class="form-select">
-                        <option selected>Sí</option>
-                        <option>No</option>
+                    <label class="form-label">Estado</label>
+                    <select name="activo" class="form-select">
+                        <option value="1" {% if piloto.activo %}selected{% endif %}>Activo</option>
+                        <option value="0" {% if not piloto.activo %}selected{% endif %}>Inactivo</option>
                     </select>
                 </div>
 
@@ -55,7 +54,6 @@
                 </button>
 
             </form>
-
         </div>
 
     </div>

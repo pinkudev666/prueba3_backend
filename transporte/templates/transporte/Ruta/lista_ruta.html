@@ -2,52 +2,42 @@
 
 {% block content %}
 
-<!-- Hero -->
 <section class="py-3">
     <div class="container">
-
         <div class="p-4 text-white text-center shadow"
-             style="
-                background: linear-gradient(135deg,#1e3a8a,#3b82f6);
-                border-radius: 20px;
-                max-width: 2000px;
-                margin: 0 auto;
-             ">
-            <h1 class="display-5 fw-bold">Gestión de Rutas</h1>
+             style="background: linear-gradient(135deg,#1e3a8a,#3b82f6); border-radius: 20px; max-width: 2000px; margin: 0 auto;">
+            <h1 class="display-5 fw-bold">Gestión de ruta</h1>
         </div>
-
     </div>
 </section>
 
-<!-- Contenido -->
 <section class="py-5">
     <div class="container">
-
-        <!-- Encabezado -->
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold mb-0">Listado de Rutas</h2>
-
-            <a href="{% url 'crear_ruta' %}" class="btn btn-primary btn    shadow-sm rounded-pill px-4">
+            <h2 class="fw-bold mb-0">Listado de ruta</h2>
+            <a href="{% url 'crear_ruta' %}" class="btn btn-primary shadow-sm rounded-pill px-4">
                 <i class="fas fa-plus me-2"></i> Crear Ruta
             </a>
         </div>
 
         <!-- Buscador y filtros -->
-        <form class="row g-3 mb-4">
-            <div class="col-md-4">
-                <input type="text" class="form-control form-control   " placeholder="Buscar por origen o destino…">
+        <form class="row g-2 mb-4 d-flex align-items-center" method="get">
+            <div class="col-auto">
+                <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Buscar por origen o destino…">
             </div>
 
-            <div class="col-md-4">
-                <select class="form-select  ">
-                    <option value="">Filtrar por tipo de transporte</option>
-                    <option>TERRESTRE</option>
-                    <option>AÉREO</option>
+            <div class="col-auto">
+                <select name="tipo" class="form-select">
+                    <option value="">Transporte</option>
+                    <option value="T" {% if tipo == 'T' %}selected{% endif %}>TERRESTRE</option>
+                    <option value="A" {% if tipo == 'A' %}selected{% endif %}>AÉREO</option>
                 </select>
             </div>
 
-            <div class="col-md-4">
-                <input type="number" class="form-control form-control   " placeholder="Filtrar por distancia (km)…">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary shadow-sm rounded-pill px-3">
+                    <i class="fas fa-filter me-1"></i> Aplicar filtros
+                </button>
             </div>
         </form>
 
@@ -65,50 +55,62 @@
                 </thead>
 
                 <tbody>
-                    <!-- EJEMPLOS ESTÁTICOS -->
-                    
+                    {% for ruta in page_obj %}
                     <tr class="border-bottom">
-                        <td class="fw-semibold">Santiago</td>
-                        <td class="fw-semibold">Valparaíso</td>
-                        <td class="fw-semibold">TERRESTRE</td>
-                        <td class="text-center">120</td>
+                        <td class="fw-semibold">{{ ruta.origen }}</td>
+                        <td class="fw-semibold">{{ ruta.destino }}</td>
+                        <td class="fw-semibold">
+                            {% if ruta.tipo_transporte == 'T' %}TERRESTRE{% else %}AÉREO{% endif %}
+                        </td>
+                        <td class="text-center">{{ ruta.distancia_km }}</td>
                         <td class="text-center">
-                            <a href="{% url 'editar_ruta' 1 %}" class="btn btn-warning btn-sm rounded-circle me-1">
+                            <a href="{% url 'editar_ruta' ruta.id %}" class="btn btn-warning btn-sm rounded-circle me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{% url 'eliminar_ruta' 1 %}" class="btn btn-danger btn-sm rounded-circle">
+                            <a href="{% url 'eliminar_ruta' ruta.id %}" class="btn btn-danger btn-sm rounded-circle">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
                     </tr>
-
-                    <tr class="border-bottom">
-                        <td class="fw-semibold">Los Ángeles</td>
-                        <td class="fw-semibold">Concepción</td>
-                        <td class="fw-semibold">TERRESTRE</td>
-                        <td class="text-center">280</td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_ruta' 2 %}" class="btn btn-warning btn-sm rounded-circle me-1">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{% url 'eliminar_ruta' 2 %}" class="btn btn-danger btn-sm rounded-circle">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            No se encontraron ruta
                         </td>
                     </tr>
-
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
 
-        <!-- Paginación visual -->
+        <!-- Paginación -->
         <nav class="mt-4">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link">Anterior</a></li>
-                <li class="page-item active"><a class="page-link">1</a></li>
-                <li class="page-item"><a class="page-link">2</a></li>
-                <li class="page-item"><a class="page-link">3</a></li>
-                <li class="page-item"><a class="page-link">Siguiente</a></li>
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ q }}&tipo={{ tipo }}&distancia={{ distancia }}">Anterior</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}&q={{ q }}&tipo={{ tipo }}&distancia={{ distancia }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ q }}&tipo={{ tipo }}&distancia={{ distancia }}">Siguiente</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+                {% endif %}
             </ul>
         </nav>
 

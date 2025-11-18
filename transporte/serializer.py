@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
-class RutaSerializer(serializers.ModelSerializer):
+class rutaerializer(serializers.ModelSerializer):
     despacho = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Ruta
@@ -45,7 +45,7 @@ class CargaSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class DespachoSerializer(serializers.ModelSerializer):
-    ruta = RutaSerializer(read_only=True)
+    ruta = rutaerializer(read_only=True)
     vehiculo = VehiculoSerializer(read_only=True)
     aeronave = AeronaveSerializer(read_only=True)
     conductor = ConductorSerializer(read_only=True)

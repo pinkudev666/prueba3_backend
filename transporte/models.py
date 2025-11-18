@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Ruta(models.Model):
@@ -72,11 +73,11 @@ class Despacho(models.Model):
     estado = models.CharField(max_length=50, choices=ESTADOS)
     costo_envio = models.IntegerField()
     ruta_id = models.ForeignKey(Ruta, on_delete=models.CASCADE, related_name="despacho")
-    vehiculo_id = models.ForeignKey(Vehiculo, on_delete=models.CASCADE, related_name="despacho")
-    aeronave_id = models.ForeignKey(Aeronave, on_delete=models.CASCADE, related_name="despacho")
-    conductor_id = models.ForeignKey(Conductor, on_delete=models.CASCADE, related_name="despacho")
-    piloto_id = models.ForeignKey(Piloto, on_delete=models.CASCADE, related_name="despacho")    
-
+    vehiculo_id = models.ForeignKey(Vehiculo, on_delete=models.CASCADE, null=True, blank=True, related_name="despacho")
+    aeronave_id = models.ForeignKey(Aeronave, on_delete=models.CASCADE, null=True, blank=True, related_name="despacho")
+    conductor_id = models.ForeignKey(Conductor, on_delete=models.CASCADE, null=True, blank=True, related_name="despacho")
+    piloto_id = models.ForeignKey(Piloto, on_delete=models.CASCADE, null=True, blank=True, related_name="despacho")    
     carga_id = models.ForeignKey(Carga, on_delete=models.CASCADE, related_name="despacho")
+
     def __str__(self):
         return f"{self.carga_id.tipo} {self.fecha_despacho} {self.estado}"

@@ -3,13 +3,10 @@
 
 <section class="py-3">
     <div class="container">
-
         <div class="p-4 text-white text-center shadow"
-            style="background: linear-gradient(135deg,#1e3a8a,#3b82f6);
-                   border-radius: 20px;">
+            style="background: linear-gradient(135deg,#1e3a8a,#3b82f6); border-radius: 20px;">
             <h1 class="display-5 fw-bold">Editar Ruta</h1>
         </div>
-
     </div>
 </section>
 
@@ -21,41 +18,43 @@
         </a>
 
         <div class="card shadow border-0 p-4 rounded-4">
-            <h3 class="fw-bold mb-4">Editar Ruta ID: {{ id }}</h3>
+            <h3 class="fw-bold mb-4">Editar Ruta ID: {{ ruta.id }}</h3>
 
-            <!-- Formulario sin BD -->
-            <form>
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
 
                 <div class="mb-3">
                     <label class="form-label">Origen</label>
-                    <input type="text" class="form-control" value="Santiago">
+                    <input type="text" name="origen" class="form-control" value="{{ ruta.origen }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Destino</label>
-                    <input type="text" class="form-control" value="Valparaíso">
+                    <input type="text" name="destino" class="form-control" value="{{ ruta.destino }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Tipo de Transporte</label>
-                    <select class="form-select">
-                        <option selected>TERRESTRE</option>
-                        <option>AÉREO</option>
+                    <select name="tipo_transporte" class="form-select" required>
+                        <option value="T" {% if ruta.tipo_transporte == 'T' %}selected{% endif %}>Terrestre</option>
+                        <option value="A" {% if ruta.tipo_transporte == 'A' %}selected{% endif %}>Aéreo</option>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Distancia (km)</label>
-                    <input type="number" class="form-control" value="120">
+                    <input type="number" name="distancia" class="form-control" value="{{ ruta.distancia_km }}" required>
                 </div>
 
-                <button class="btn btn-warning mt-3">
-                    <i class="fas fa-edit me-2"></i>
-                    Actualizar Ruta
+                <button type="submit" class="btn btn-warning mt-3">
+                    <i class="fas fa-edit me-2"></i> Actualizar Ruta
                 </button>
 
             </form>
-
         </div>
 
     </div>

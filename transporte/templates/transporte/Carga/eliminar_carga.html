@@ -13,7 +13,6 @@
     </div>
 </section>
 
-
 <section class="py-5">
     <div class="container">
 
@@ -23,22 +22,23 @@
 
         <div class="card shadow border-0 p-4 rounded-4 text-center">
 
-            <h3 class="fw-bold mb-3">¿Eliminar la Carga ID {{ id }}?</h3>
+            <h3 class="fw-bold mb-3">¿Eliminar la Carga ID {{ carga.id }}?</h3>
 
-            <p class="fs-5">
-                Esta acción no se puede deshacer.
-            </p>
+            <p class="fs-5">Esta acción no se puede deshacer.</p>
 
-            <div class="mt-4">
+            <!-- FORMULARIO FUNCIONAL PARA CONFIRMAR ELIMINACIÓN -->
+            <form method="POST" class="mt-4">
+                {% csrf_token %}
+
                 <a href="{% url 'lista_carga' %}" class="btn btn-secondary me-3">
                     Cancelar
                 </a>
 
-                <button class="btn btn-danger">
+                <button type="submit" class="btn btn-danger">
                     <i class="fas fa-trash-alt me-2"></i>
                     Confirmar Eliminación
                 </button>
-            </div>
+            </form>
 
         </div>
 

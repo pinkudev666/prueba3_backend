@@ -1,54 +1,60 @@
 {% extends 'transporte/base.html' %}
-
 {% block content %}
 
-<!-- Hero -->
 <section class="py-3">
     <div class="container">
-
         <div class="p-4 text-white text-center shadow"
-             style="
-                background: linear-gradient(135deg,#1e3a8a,#3b82f6);
-                border-radius: 20px;
-                max-width: 2000px;
-                margin: 0 auto;
-             ">
+             style="background: linear-gradient(135deg,#1e3a8a,#3b82f6); border-radius: 20px;">
             <h1 class="display-5 fw-bold">Gestión de Despachos</h1>
         </div>
-
     </div>
 </section>
 
-<!-- Contenido -->
 <section class="py-5">
     <div class="container">
 
-        <!-- Encabezado -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold mb-0">Listado de Despachos</h2>
-
-            <a href="{% url 'crear_despacho' %}" class="btn btn-primary btn    shadow-sm rounded-pill px-4">
+            <a href="{% url 'crear_despacho' %}" class="btn btn-primary shadow-sm rounded-pill px-4">
                 <i class="fas fa-plus me-2"></i> Crear Despacho
             </a>
         </div>
 
-        <!-- Buscador y filtros -->
-        <form class="row g-3 mb-4">
-            <div class="col-md-4">
-                <input type="date" class="form-control form-control   " placeholder="Filtrar por fecha…">
+        <!-- Filtros -->
+        <form method="GET" class="row g-2 mb-4 d-flex align-items-center">
+            <div class="col-auto">
+                <input type="date" name="fecha" value="{{ fecha }}" class="form-control">
             </div>
 
-            <div class="col-md-4">
-                <select class="form-select  ">
+            <div class="col-auto">
+                <select name="estado" class="form-select">
                     <option value="">Filtrar por estado</option>
-                    <option>EN RUTA</option>
-                    <option>ENTREGADO</option>
-                    <option>PENDIENTE</option>
+                    <option value="ER" {% if estado == "ER" %}selected{% endif %}>EN RUTA</option>
+                    <option value="E"  {% if estado == "E"  %}selected{% endif %}>ENTREGADO</option>
+                    <option value="P"  {% if estado == "P"  %}selected{% endif %}>PENDIENTE</option>
                 </select>
             </div>
 
-            <div class="col-md-4">
-                <input type="number" class="form-control form-control   " placeholder="Filtrar por costo…">
+            <div class="col-auto">
+                <input type="text" name="ruta" class="form-control" placeholder="Filtrar por ruta…" value="{{ ruta }}">
+            </div>
+
+            <div class="col-auto">
+                <select name="tipo_transporte" class="form-select">
+                    <option value="">Transporte</option>
+                    <option value="A" {% if tipo_transporte == "A" %}selected{% endif %}>AEREO</option>
+                    <option value="T"  {% if tipo_transporte == "T"  %}selected{% endif %}>TERRESTRE</option>
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <input type="text" name="operador" class="form-control" placeholder="Buscar por operador..." value="{{ operador }}">
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary shadow-sm rounded-pill px-3">
+                    <i class="fas fa-filter me-1"></i> Aplicar filtros
+                </button>
             </div>
         </form>
 
@@ -62,67 +68,117 @@
                         <th>Costo</th>
                         <th>Ruta</th>
                         <th>Transporte</th>
-                        <th>Conductor / Piloto</th>
+                        <th>Operador</th>
                         <th>Carga</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <!-- EJEMPLOS ESTÁTICOS -->
-                    
-                    <tr class="border-bottom">
-                        <td class="text-center">2025-11-15</td>
-                        <td class="text-center">
-                            <span class="badge bg-warning px-3 py-2 rounded-pill">EN RUTA</span>
+                    {% for d in despachos %}
+                    <tr class="border-bottom text-center">
+                        <td>{{ d.fecha_despacho }}</td>
+
+                        <td>
+                            {% if d.estado == "ER" %}
+                                <span class="badge bg-warning px-3 py-2 rounded-pill">EN RUTA</span>
+                            {% elif d.estado == "E" %}
+                                <span class="badge bg-success px-3 py-2 rounded-pill">ENTREGADO</span>
+                            {% else %}
+                                <span class="badge bg-secondary px-3 py-2 rounded-pill">PENDIENTE</span>
+                            {% endif %}
                         </td>
-                        <td class="text-center">$150.000</td>
-                        <td class="fw-semibold">Santiago - Valparaíso</td>
-                        <td class="fw-semibold">AB-1234</td>
-                        <td class="fw-semibold">Carlos Soto</td>
-                        <td class="fw-semibold">Carga General</td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_despacho' 1 %}" class="btn btn-warning btn-sm rounded-circle me-1">
+
+                        <td>${{ d.costo_envio }}</td>
+
+                        <td class="fw-semibold">
+                            {{ d.ruta_id.origen }} - {{ d.ruta_id.destino }}
+                        </td>
+
+                        <td class="fw-semibold">
+                        {% if d.vehiculo_id %}
+                            <i class="fa-solid fa-truck text-primary me-1"></i>
+                            {{ d.vehiculo_id.patente }}
+
+                        {% elif d.aeronave_id %}
+                            <i class="fa-solid fa-plane text-info me-1"></i>
+                            {{ d.aeronave_id.matricula }}
+
+                        {% else %}
+                            <span class="text-danger">Sin transporte</span>
+                        {% endif %}
+                        </td>
+
+                        <td class="fw-semibold">
+                            {% if d.conductor_id %}
+                                {{ d.conductor_id.nombre }}
+                            {% else %}
+                                {{ d.piloto_id.nombre }}
+                            {% endif %}
+                        </td>
+
+                        <td class="fw-semibold">
+                            {{ d.carga_id.tipo }}
+                        </td>
+
+                        <td>
+                            <a href="{% url 'editar_despacho' d.id %}" class="btn btn-warning btn-sm rounded-circle me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{% url 'eliminar_despacho' 1 %}" class="btn btn-danger btn-sm rounded-circle">
+                            <a href="{% url 'eliminar_despacho' d.id %}" class="btn btn-danger btn-sm rounded-circle">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
                     </tr>
-
-                    <tr class="border-bottom">
-                        <td class="text-center">2025-11-12</td>
-                        <td class="text-center">
-                            <span class="badge bg-success px-3 py-2 rounded-pill">ENTREGADO</span>
-                        </td>
-                        <td class="text-center">$200.000</td>
-                        <td class="fw-semibold">Los Ángeles - Concepción</td>
-                        <td class="fw-semibold">XY-9876</td>
-                        <td class="fw-semibold">Ana Martínez</td>
-                        <td class="fw-semibold">Carga Perecible</td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_despacho' 2 %}" class="btn btn-warning btn-sm rounded-circle me-1">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{% url 'eliminar_despacho' 2 %}" class="btn btn-danger btn-sm rounded-circle">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-4">
+                            No se encontraron resultados
                         </td>
                     </tr>
-
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
 
-        <!-- Paginación visual -->
+        <!-- Paginación -->
         <nav class="mt-4">
             <ul class="pagination justify-content-center">
+
+                {% if despachos.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ despachos.previous_page_number }}&fecha={{ fecha }}&estado={{ estado }}&costo={{ costo }}">
+                        Anterior
+                    </a>
+                </li>
+                {% else %}
                 <li class="page-item disabled"><a class="page-link">Anterior</a></li>
-                <li class="page-item active"><a class="page-link">1</a></li>
-                <li class="page-item"><a class="page-link">2</a></li>
-                <li class="page-item"><a class="page-link">3</a></li>
-                <li class="page-item"><a class="page-link">Siguiente</a></li>
+                {% endif %}
+
+                {% for num in despachos.paginator.page_range %}
+                    {% if despachos.number == num %}
+                    <li class="page-item active">
+                        <a class="page-link">{{ num }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}&fecha={{ fecha }}&estado={{ estado }}&costo={{ costo }}">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if despachos.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ despachos.next_page_number }}&fecha={{ fecha }}&estado={{ estado }}&costo={{ costo }}">
+                        Siguiente
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><a class="page-link">Siguiente</a></li>
+                {% endif %}
+
             </ul>
         </nav>
 

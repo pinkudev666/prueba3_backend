@@ -3,28 +3,18 @@
 
 {% block content %}
 
-<!-- Hero -->
 <section class="py-3">
     <div class="container">
-
         <div class="p-3 text-white text-center shadow"
-            style="
-                background: linear-gradient(135deg,#1e3a8a,#3b82f6);
-                border-radius: 20px;
-                max-width: 550px;
-                margin: 0 auto;
-            ">
+             style="background: linear-gradient(135deg,#1e3a8a,#3b82f6); border-radius: 20px; max-width: 550px; margin: 0 auto;">
             <h1 class="display-10 fw-bold fs-2">Inicio de Sesión</h1>
             <p class="mt-2">Accede a tu cuenta para gestionar el sistema de transporte.</p>
         </div>
-
     </div>
 </section>
 
-<!-- Login Form -->
 <section class="py-3">
     <div class="container d-flex justify-content-center">
-
         <div class="shadow p-4 rounded-4" style="max-width: 450px; width: 100%;">
 
             <h3 class="text-center mb-4 fw-bold">Ingresar</h3>
@@ -34,13 +24,17 @@
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Usuario</label>
-                    <input type="text" class="form-control" placeholder="Ingresa tu usuario">
+                    <input name="username" type="text" class="form-control" required placeholder="Ingresa tu usuario">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Contraseña</label>
-                    <input type="password" class="form-control" placeholder="Ingresa tu contraseña">
+                    <input name="password" type="password" class="form-control" required placeholder="Ingresa tu contraseña">
                 </div>
+
+                {% if error %}
+                    <div class="alert alert-danger py-2 text-center">{{ error }}</div>
+                {% endif %}
 
                 <button type="submit" class="btn btn-primary w-100 mt-3 shadow-sm rounded-pill">
                     Iniciar Sesión
@@ -53,7 +47,6 @@
             </div>
 
         </div>
-
     </div>
 </section>
 

@@ -1,58 +1,51 @@
 {% extends 'transporte/base.html' %}
+{% load static %}
 
 {% block content %}
 
-<!-- Hero -->
 <section class="py-3">
     <div class="container">
-
         <div class="p-4 text-white text-center shadow"
-             style="
-                background: linear-gradient(135deg,#1e3a8a,#3b82f6);
-                border-radius: 20px;
-                max-width: 2000px;
-                margin: 0 auto;
-             ">
+             style="background: linear-gradient(135deg,#1e3a8a,#3b82f6); border-radius: 20px;">
             <h1 class="display-5 fw-bold">Gestión de Cargas</h1>
         </div>
-
     </div>
 </section>
 
-<!-- Contenido -->
 <section class="py-5">
     <div class="container">
 
-        <!-- Encabezado -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold mb-0">Listado de Cargas</h2>
 
-            <a href="{% url 'crear_carga' %}" class="btn btn-primary btn- shadow-sm rounded-pill px-4">
+            <a href="{% url 'crear_carga' %}" class="btn btn-primary shadow-sm rounded-pill px-4">
                 <i class="fas fa-plus me-2"></i> Crear Carga
             </a>
         </div>
 
-        <!-- Buscador y filtros en la misma línea -->
-        <form class="row g-2 mb-4 d-flex align-items-center">
+        <!-- 🔎 Buscador y filtros -->
+        <form method="GET" class="row g-2 mb-4 d-flex align-items-center">
             <div class="col-auto">
-                <input type="text" class="form-control form-control-" placeholder="Cliente…">
+                <input type="text" name="cliente" class="form-control"
+                       placeholder="Cliente…" value="{{ cliente }}">
             </div>
 
             <div class="col-auto">
-                <input type="text" class="form-control form-control-" placeholder="Tipo…">
+                <input type="text" name="tipo" class="form-control"
+                       placeholder="Tipo…" value="{{ tipo }}">
             </div>
 
             <div class="col-auto">
-                <input type="number" class="form-control form-control-" placeholder="Peso o valor…">
+                <input type="number" name="peso_valor" class="form-control"
+                       placeholder="Peso o valor…" value="{{ peso_valor }}">
             </div>
 
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary btn shadow- rounded-pill px-3">
+                <button type="submit" class="btn btn-primary shadow-sm rounded-pill px-3">
                     <i class="fas fa-filter me-1"></i> Aplicar filtros
                 </button>
             </div>
         </form>
-
 
         <!-- Tabla -->
         <div class="table-responsive shadow rounded-3">
@@ -68,50 +61,72 @@
                 </thead>
 
                 <tbody>
-                    <!-- EJEMPLOS ESTÁTICOS -->
-                    
+                    {% for carga in page_obj %}
                     <tr class="border-bottom">
-                        <td class="fw-semibold">Juan Pérez</td>
-                        <td class="text-center">500</td>
-                        <td class="fw-semibold">Carga General</td>
-                        <td class="text-center">$150.000</td>
+                        <td class="fw-semibold">{{ carga.cliente_id.nombre }}</td>
+                        <td class="text-center">{{ carga.peso }}</td>
+                        <td class="fw-semibold">{{ carga.tipo }}</td>
+                        <td class="text-center">${{ carga.valor }}</td>
                         <td class="text-center">
-                            <a href="{% url 'editar_carga' 1 %}" class="btn btn-warning btn-sm rounded-circle me-1">
+                            <a href="{% url 'editar_carga' carga.id %}" class="btn btn-warning btn-sm rounded-circle me-1">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="{% url 'eliminar_carga' 1 %}" class="btn btn-danger btn-sm rounded-circle">
+                            <a href="{% url 'eliminar_carga' carga.id %}"
+                               class="btn btn-danger btn-sm rounded-circle">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
                     </tr>
-
-                    <tr class="border-bottom">
-                        <td class="fw-semibold">María González</td>
-                        <td class="text-center">300</td>
-                        <td class="fw-semibold">Carga Perecible</td>
-                        <td class="text-center">$200.000</td>
-                        <td class="text-center">
-                            <a href="{% url 'editar_carga' 2 %}" class="btn btn-warning btn-sm rounded-circle me-1">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="{% url 'eliminar_carga' 2 %}" class="btn btn-danger btn-sm rounded-circle">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            No hay cargas registradas
                         </td>
                     </tr>
-
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
 
-        <!-- Paginación visual -->
+        <!-- PAGINACIÓN REAL -->
         <nav class="mt-4">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a class="page-link">Anterior</a></li>
-                <li class="page-item active"><a class="page-link">1</a></li>
-                <li class="page-item"><a class="page-link">2</a></li>
-                <li class="page-item"><a class="page-link">3</a></li>
-                <li class="page-item"><a class="page-link">Siguiente</a></li>
+
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.previous_page_number }}&cliente={{ cliente }}&tipo={{ tipo }}&peso_valor={{ peso_valor }}">
+                        Anterior
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Anterior</span>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                    <a class="page-link"
+                       href="?page={{ num }}&cliente={{ cliente }}&tipo={{ tipo }}&peso_valor={{ peso_valor }}">
+                        {{ num }}
+                    </a>
+                </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ page_obj.next_page_number }}&cliente={{ cliente }}&tipo={{ tipo }}&peso_valor={{ peso_valor }}">
+                        Siguiente
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Siguiente</span>
+                </li>
+                {% endif %}
+
             </ul>
         </nav>
 

@@ -1,9 +1,9 @@
 from django.urls import path, include
 from rest_framework import routers
-from transporte import views
+from transporte import views   # <--- ESTA ES LA IMPORTACIÓN CORRECTA
 
 router = routers.DefaultRouter() 
-router.register(r'rutas', views.RutaViewSet)
+router.register(r'ruta', views.RutaViewSet)
 router.register(r'vehiculos', views.VehiculoViewSet)
 router.register(r'aeronaves', views.AeronaveViewSet)
 router.register(r'conductores', views.ConductorViewSet)
@@ -13,7 +13,8 @@ router.register(r'cargas', views.CargaViewSet)
 router.register(r'despachos', views.DespachoViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
+
     # ------------------ RUTA ------------------
     path('ruta/', views.lista_ruta, name='lista_ruta'),
     path('ruta/crear/', views.crear_ruta, name='crear_ruta'),
@@ -43,12 +44,6 @@ urlpatterns = [
     path('piloto/crear/', views.crear_piloto, name='crear_piloto'),
     path('piloto/editar/<int:id>/', views.editar_piloto, name='editar_piloto'),
     path('piloto/eliminar/<int:id>/', views.eliminar_piloto, name='eliminar_piloto'),
-
-    # ---------------- RUTA ----------------
-    path('ruta/', views.lista_ruta, name='lista_ruta'),
-    path('ruta/crear/', views.crear_ruta, name='crear_ruta'),
-    path('ruta/editar/<int:id>/', views.editar_ruta, name='editar_ruta'),
-    path('ruta/eliminar/<int:id>/', views.eliminar_ruta, name='eliminar_ruta'),
 
     # ---------------- DESPACHO ----------------
     path('despacho/', views.lista_despacho, name='lista_despacho'),

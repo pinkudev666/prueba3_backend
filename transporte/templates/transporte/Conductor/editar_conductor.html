@@ -21,31 +21,31 @@
         </a>
 
         <div class="card shadow border-0 p-4 rounded-4">
-            <h3 class="fw-bold mb-4">Editar Conductor ID: {{ id }}</h3>
+            <h3 class="fw-bold mb-4">Editar Conductor: {{ conductor.nombre }}</h3>
 
-            <!-- Formulario sin BD -->
-            <form>
+            <form method="POST">
+                {% csrf_token %}
 
                 <div class="mb-3">
                     <label class="form-label">Nombre</label>
-                    <input type="text" class="form-control" value="Juan Pérez">
+                    <input type="text" name="nombre" class="form-control" value="{{ conductor.nombre }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">RUT</label>
-                    <input type="text" class="form-control" value="12.345.678-9">
+                    <input type="text" name="rut" class="form-control" value="{{ conductor.rut }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Licencia</label>
-                    <input type="text" class="form-control" value="B1234567">
+                    <input type="text" name="licencia" class="form-control" value="{{ conductor.licencia }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Activo</label>
-                    <select class="form-select">
-                        <option selected>Sí</option>
-                        <option>No</option>
+                    <select name="activo" class="form-select">
+                        <option value="1" {% if conductor.activo %}selected{% endif %}>Activo</option>
+                        <option value="0" {% if not conductor.activo %}selected{% endif %}>Inactivo</option>
                     </select>
                 </div>
 

@@ -95,22 +95,50 @@
                     </a>
                 </li>
 
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href=""><i class="fas fa-tachometer-alt"></i> Panel</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-warning ms-2" href="#">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </a>
-                    </li>
+                {% if user.is_authenticated %}                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" 
+                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user me-1"></i> Paneles
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item text" href="/transporte/api/">
+                                <i class="fas fa-database me-2"></i> API
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text" href="/admin/">
+                                <i class="fas fa-cogs me-2"></i> Admin
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" 
+                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user me-1"></i> {{ user.username }}
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item text-danger" href="{% url 'cerrar_sesion' %}">
+                                <i class="fas fa-sign-out-alt me-2"></i> Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 {% else %}
+                    <!-- Mostrar botón de iniciar sesión -->
                     <li class="nav-item">
                         <a class="btn btn-warning ms-2" href="{% url 'inicio_sesion' %}">
                             <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                         </a>
                     </li>
                 {% endif %}
+
             </ul>
         </div>
     </div>

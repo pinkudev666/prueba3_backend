@@ -21,29 +21,40 @@
         </a>
 
         <div class="card shadow border-0 p-4 rounded-4">
-            <h3 class="fw-bold mb-4">Editar Carga ID: {{ id }}</h3>
+            <h3 class="fw-bold mb-4">Editar Carga ID: {{ carga.id }}</h3>
 
-            <!-- Formulario sin BD -->
-            <form>
+            <!-- FORMULARIO FUNCIONAL -->
+            <form method="POST">
+                {% csrf_token %}
 
                 <div class="mb-3">
                     <label class="form-label">Cliente</label>
-                    <input type="text" class="form-control" value="Nombre Cliente">
+                    <select name="cliente_id" class="form-select" required>
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.id }}"
+                                {% if cliente.id == carga.cliente_id.id %}selected{% endif %}>
+                                {{ cliente.nombre }}
+                            </option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Peso (kg)</label>
-                    <input type="number" class="form-control" value="500">
+                    <input type="number" name="peso" class="form-control"
+                           value="{{ carga.peso }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Tipo de Carga</label>
-                    <input type="text" class="form-control" value="Mercancía General">
+                    <input type="text" name="tipo" class="form-control"
+                           value="{{ carga.tipo }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Valor ($)</label>
-                    <input type="number" class="form-control" value="1500">
+                    <input type="number" name="valor" class="form-control"
+                           value="{{ carga.valor }}" required>
                 </div>
 
                 <button class="btn btn-warning mt-3">
